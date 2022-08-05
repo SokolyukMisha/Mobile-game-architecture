@@ -7,10 +7,12 @@ namespace CodeBase.Hero
 {
     public class HeroMove : MonoBehaviour
     {
+        private readonly int _moveMesh = Animator.StringToHash("Walking");
         public CharacterController CharacterController;
         public float movementSpeed;
         private IInputService _inputService;
         private Camera _camera;
+        public Animator animator;
 
         private void Awake()
         {
@@ -40,6 +42,7 @@ namespace CodeBase.Hero
             movementVector += Physics.gravity; // Add gravity to the movement vector.
             
             CharacterController.Move(movementSpeed * movementVector * Time.deltaTime);
+            animator.SetFloat(_moveMesh, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
         }
 
         private void CameraFollow() =>
