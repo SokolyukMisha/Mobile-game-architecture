@@ -1,19 +1,18 @@
-﻿using System;
-using CodeBase.CameraLogic;
+﻿using CodeBase.CameraLogic;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private const string HeroPrefabPath = "Infrastructure/Hero";
-        private const string HudPrefabPath = "Infrastructure/Hud";
         private const string Initialpoint = "InitialPoint";
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
+        private readonly IGameFactory _gameFactory;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
@@ -30,9 +29,8 @@ namespace CodeBase.Infrastructure
 
         private void OnLoaded()
         {
-            GameObject initialPoint = GameObject.FindGameObjectWithTag(Initialpoint);
-            GameObject hero = Instantiate(HeroPrefabPath, initialPoint.transform.position);
-            Instantiate(HudPrefabPath);
+            GameObject hero = _gameFactory.CreateHero(GameObject.FindGameObjectWithTag(Initialpoint));
+            _gameFactory.CreateHud();
             
             CameraFollow(hero);
             _gameStateMachine.Enter<GameLoopState>();
@@ -43,18 +41,10 @@ namespace CodeBase.Infrastructure
             _loadingCurtain.Hide();
         }
 
-        private static GameObject Instantiate(string path)
+        private void CameraFollow(GameObject hero)
         {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return  Object.Instantiate(prefab);
+            if (Camera.main != null) 
+                Camera.main.GetComponent<CameraFollow>().Follow(hero);
         }
-        private static GameObject Instantiate(string path, Vector3 at)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return  Object.Instantiate(prefab, at, Quaternion.identity);
-        }
-
-        private void CameraFollow(GameObject hero) =>
-            Camera.main.GetComponent<CameraFollow>().Follow(hero);
     }
 }
