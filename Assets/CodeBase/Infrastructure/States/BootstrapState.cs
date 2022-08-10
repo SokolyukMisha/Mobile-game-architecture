@@ -10,34 +10,37 @@ namespace CodeBase.Infrastructure.States
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly AllServices _allServices;
         private const string Initial = "Initial";
         private const string Main = "Main";
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices allServices)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _allServices = allServices;
+            
+            RegisterServices();
         }
 
         public void Enter()
         {
-            RegisterInputServices();
             _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
-
-        private void EnterLoadLevel() => 
-            _stateMachine.Enter<LoadLevelState, string>(Main);
 
         public void Exit()
         {
             
         }
 
-        private void RegisterInputServices()
-        {
-            Game.InputService = SetupInputService();
+        private void EnterLoadLevel() => 
+            _stateMachine.Enter<LoadLevelState, string>(Main);
 
-            AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetProvider>()));
+        private void RegisterServices()
+        {
+            _allServices.RegisterSingle(SetupInputService());
+            _allServices.RegisterSingle<IAssets>(new AssetProvider());
+            _allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssets>()));
 
         }
 

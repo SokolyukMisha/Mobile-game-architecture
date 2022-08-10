@@ -1,4 +1,4 @@
-using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace CodeBase.Hero
     public class HeroMove : MonoBehaviour
     {
         private readonly int _moveMesh = Animator.StringToHash("Walking");
-        public CharacterController CharacterController;
+        public CharacterController characterController;
         public float movementSpeed;
         private IInputService _inputService;
         private Camera _camera;
@@ -15,7 +15,7 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _inputService = Game.InputService;
+            _inputService = AllServices.Container.Single<IInputService>();
         }
 
         private void Start()
@@ -39,8 +39,8 @@ namespace CodeBase.Hero
 
             movementVector += Physics.gravity; // Add gravity to the movement vector.
             
-            CharacterController.Move(movementSpeed * movementVector * Time.deltaTime);
-            animator.SetFloat(_moveMesh, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
+            characterController.Move(movementSpeed * movementVector * Time.deltaTime);
+            animator.SetFloat(_moveMesh, characterController.velocity.magnitude, 0.1f, Time.deltaTime);
         }
         
     }
