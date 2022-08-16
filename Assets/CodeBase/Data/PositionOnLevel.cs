@@ -13,5 +13,10 @@ namespace CodeBase.Data
             this.level = level;
             Position = position;
         }
+
+        public PositionOnLevel(string initialLevel)
+        {
+            level = initialLevel;
+        }
     }
 }

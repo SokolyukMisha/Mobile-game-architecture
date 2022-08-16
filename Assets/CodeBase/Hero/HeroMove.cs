@@ -1,10 +1,11 @@
 using CodeBase.Data;
-using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.Services.PersistentProgress
+namespace CodeBase.Hero
 {
     [RequireComponent(typeof(CharacterController))]
     public class HeroMove : MonoBehaviour, ISavedProgress
@@ -48,14 +49,14 @@ namespace CodeBase.Infrastructure.Services.PersistentProgress
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            progress.WorldData.positionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+            progress.worldData.positionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (CurrentLevel() == progress.WorldData.positionOnLevel.level)
+            if (CurrentLevel() == progress.worldData.positionOnLevel.level)
             {
-                Vector3Data savedPosition = progress.WorldData.positionOnLevel.Position;
+                Vector3Data savedPosition = progress.worldData.positionOnLevel.Position;
                 
                 if (savedPosition != null) 
                     Warp(to: savedPosition);
@@ -68,7 +69,7 @@ namespace CodeBase.Infrastructure.Services.PersistentProgress
         private void Warp(Vector3Data to)
         {
             characterController.enabled = false;
-            transform.position = to.AsUnityVector();
+            transform.position = to.AsUnityVector().AddY(characterController.height);
             characterController.enabled = true;
         }
     }

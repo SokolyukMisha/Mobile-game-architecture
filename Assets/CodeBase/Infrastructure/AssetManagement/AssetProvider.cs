@@ -10,10 +10,10 @@ namespace CodeBase.Infrastructure.AssetManagement
             return  Object.Instantiate(prefab, at, Quaternion.identity);
         }
 
-        public void Instantiate(string path)
+        public GameObject Instantiate(string path)
         {
             GameObject prefab = Resources.Load<GameObject>(path);
-            Object.Instantiate(prefab);
+           return Object.Instantiate(prefab);
         }
     }
 }

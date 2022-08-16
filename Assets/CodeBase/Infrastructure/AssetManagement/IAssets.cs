@@ -6,6 +6,6 @@ namespace CodeBase.Infrastructure.AssetManagement
     public interface IAssets : IService
     {
         GameObject Instantiate(string path, Vector3 at);
-        void Instantiate(string path);
+        GameObject Instantiate(string path);
     }
 }
