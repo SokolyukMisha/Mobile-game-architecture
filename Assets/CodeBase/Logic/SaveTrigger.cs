@@ -1,6 +1,4 @@
-﻿using System;
-using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.PersistentProgress;
+﻿using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using UnityEngine;
 
@@ -19,7 +17,6 @@ namespace CodeBase.Logic
         private void OnTriggerEnter(Collider other)
         {
             _saveLoadService.SaveProgress();
-            Debug.Log("Progress saved");
             gameObject.SetActive(false);
         }
 

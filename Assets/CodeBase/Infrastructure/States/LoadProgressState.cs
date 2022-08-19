@@ -1,6 +1,7 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -19,8 +20,8 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter()
         {
-            LoadProgressOnInitNew();
-            _gameStateMachine.Enter<LoadLevelState, string>(_persistentProgressService.Progress.worldData.positionOnLevel.level);
+            LoadProgressOrInitNew();
+            _gameStateMachine.Enter<LoadLevelState, string>(_persistentProgressService.Progress.worldData.positionOnLevel.Level);
         }
 
         public void Exit()
@@ -28,10 +29,19 @@ namespace CodeBase.Infrastructure.States
             
         }
 
-        private void LoadProgressOnInitNew() => 
-            _persistentProgressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
+        private void LoadProgressOrInitNew()
+        {
+            Debug.Log("Loading progress...");
+            Debug.Log(_saveLoadService.LoadProgress() == null);
 
-        private PlayerProgress NewProgress() => 
-            new PlayerProgress("Main");
+        _persistentProgressService.Progress = 
+                _saveLoadService.LoadProgress() != null ? _saveLoadService.LoadProgress() : NewProgress();
+        }
+
+        private PlayerProgress NewProgress()
+        {
+           PlayerProgress progress =  new PlayerProgress(initialLevel: "Main");
+           return progress;
+        }
     }
 }

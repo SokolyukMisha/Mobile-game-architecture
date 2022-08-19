@@ -54,7 +54,7 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (CurrentLevel() == progress.worldData.positionOnLevel.level)
+            if (CurrentLevel() == progress.worldData.positionOnLevel.Level)
             {
                 Vector3Data savedPosition = progress.worldData.positionOnLevel.Position;
                 

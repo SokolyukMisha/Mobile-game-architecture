@@ -66,7 +66,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1101 &110121428
 AnimatorStateTransition:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -88,8 +88,8 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 0
 --- !u!1102 &110200000
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -101,8 +101,7 @@ AnimatorState:
   - {fileID: 1101934431744015962}
   - {fileID: 1101210698909966914}
   - {fileID: 1101916144724722884}
-  m_StateMachineBehaviours:
-  - {fileID: 114567985895810948}
+  m_StateMachineBehaviours: []
   m_Position: {x: 96, y: -36, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -119,8 +118,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &110214952
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -129,8 +128,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101640143538110702}
-  m_StateMachineBehaviours:
-  - {fileID: 114946513169856686}
+  m_StateMachineBehaviours: []
   m_Position: {x: 348, y: 96, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -147,8 +145,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &110228231
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -156,8 +154,7 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours:
-  - {fileID: 114100481717377470}
+  m_StateMachineBehaviours: []
   m_Position: {x: 96, y: 276, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -174,8 +171,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &110253850
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -184,8 +181,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101989175651960640}
-  m_StateMachineBehaviours:
-  - {fileID: 114614153646938036}
+  m_StateMachineBehaviours: []
   m_Position: {x: 348, y: 36, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -202,8 +198,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &110255229
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -213,8 +209,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101849881269797934}
   - {fileID: 1101950761846262818}
-  m_StateMachineBehaviours:
-  - {fileID: 114597225920860118}
+  m_StateMachineBehaviours: []
   m_Position: {x: 348, y: -36, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -231,8 +226,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &110290023
 AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -242,8 +237,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101820757264408580}
   - {fileID: 1101776761942961964}
-  m_StateMachineBehaviours:
-  - {fileID: 114183249730394060}
+  m_StateMachineBehaviours: []
   m_Position: {x: 228, y: -108, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -260,8 +254,8 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &110700000
 AnimatorStateMachine:
-  serializedVersion: 5
-  m_ObjectHideFlags: 3
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -278,13 +272,13 @@ AnimatorStateMachine:
     m_Position: {x: -36, y: 108, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110253850}
-    m_Position: {x: 396, y: -84, z: 0}
+    m_Position: {x: 390, y: -80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110228231}
     m_Position: {x: 396, y: -204, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110214952}
-    m_Position: {x: 168, y: -204, z: 0}
+    m_Position: {x: 170, y: -200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102213467112807186}
     m_Position: {x: 324, y: 264, z: 0}
@@ -780,7 +774,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &1102213467112807186
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -792,8 +786,7 @@ AnimatorState:
   - {fileID: 1101326893715646348}
   - {fileID: 1101911953863094008}
   - {fileID: 1101466948365236004}
-  m_StateMachineBehaviours:
-  - {fileID: 114412610141707362}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

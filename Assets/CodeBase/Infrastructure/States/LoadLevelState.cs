@@ -35,7 +35,6 @@ namespace CodeBase.Infrastructure.States
         private void OnLoaded()
         {
             InitGameWorld();
-            InformProgressReaders();
             _gameStateMachine.Enter<GameLoopState>();
         }
 
@@ -55,6 +54,7 @@ namespace CodeBase.Infrastructure.States
             GameObject hero = _gameFactory.CreateHero(GameObject.FindGameObjectWithTag(Initialpoint));
             _gameFactory.CreateHud();
             CameraFollow(hero);
+            InformProgressReaders();
         }
 
         private void InformProgressReaders()

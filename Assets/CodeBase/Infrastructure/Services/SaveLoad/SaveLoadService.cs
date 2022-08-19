@@ -22,17 +22,14 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         {
             foreach (ISavedProgress progressWriter in _gameFactory.ProgressWriters)
                 progressWriter.UpdateProgress(_progressService.Progress);
-            
+            Debug.Log("save progress");
             PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
         }
 
-        public PlayerProgress LoadProgress() =>
-            PlayerPrefs.GetString(ProgressKey)?
-                .ToDeserialized<PlayerProgress>();
-
-        public static void IncorectVord()
+        public PlayerProgress LoadProgress()
         {
-            
+            return PlayerPrefs.GetString(ProgressKey)?
+                .ToDeserialized<PlayerProgress>();
         }
     }
 }
