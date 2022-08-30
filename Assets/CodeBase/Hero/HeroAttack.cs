@@ -14,14 +14,14 @@ namespace CodeBase.Hero
     {
         public HeroAnimator heroAnimator;
         public CharacterController characterController;
-        private InputService _input;
+        private IInputService _input;
         private static int layerMask;
         private Collider[] _hits = new Collider[3];
         private Stats _stats;
 
         private void Awake()
         {
-            _input = AllServices.Container.Single<InputService>();
+            _input = AllServices.Container.Single<IInputService>();
             layerMask = 1 << LayerMask.NameToLayer("Hittable");
         }
         
