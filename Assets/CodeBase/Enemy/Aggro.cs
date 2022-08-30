@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -11,7 +10,6 @@ namespace CodeBase.Enemy
 
         public float cooldown;
         private Coroutine _aggroCoroutine;
-        private bool _hasAgroTarget = false;
 
         private void Start()
         {
@@ -23,21 +21,14 @@ namespace CodeBase.Enemy
 
         private void TriggerExit(Collider obj)
         {
-            if (_hasAgroTarget)
-            {
-                _hasAgroTarget = false;
-                _aggroCoroutine = StartCoroutine(SwitchFollowOffAfterCooldown());   
-            }
+            _aggroCoroutine = StartCoroutine(SwitchFollowOffAfterCooldown());
         }
 
         private void TriggerEnter(Collider obj)
         {
-            if (_hasAgroTarget == false)
-            {
-                _hasAgroTarget = true;
-                StopAgroCoroutine();
-                SwitchFollow(true); 
-            }
+            StopAgroCoroutine();
+            SwitchFollow(true); 
+            
         }
 
         private void SwitchFollow(bool b) => 

@@ -453,8 +453,12 @@ GameObject:
   - component: {fileID: 2698991918695924152}
   - component: {fileID: 2698991918688480790}
   - component: {fileID: 2698991919925962800}
-  - component: {fileID: 2698991919925962801}
   - component: {fileID: 8880972866407632835}
+  - component: {fileID: 2698991919925962801}
+  - component: {fileID: 4437206954445230363}
+  - component: {fileID: 8074504497461877628}
+  - component: {fileID: 3498337907091379941}
+  - component: {fileID: 3832815006912396203}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Untagged
@@ -519,6 +523,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.81, z: 0}
+--- !u!65 &8880972866407632835
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698991918695767448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2.5, z: 1.26}
+  m_Center: {x: 0, y: 1.28, z: 0.24}
 --- !u!114 &2698991919925962801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,19 +551,64 @@ MonoBehaviour:
   characterController: {fileID: 2698991919925962800}
   movementSpeed: 4
   animator: {fileID: 2698991918688480790}
---- !u!65 &8880972866407632835
-BoxCollider:
+--- !u!114 &4437206954445230363
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2698991918695767448}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.5, z: 0.76}
-  m_Center: {x: 0, y: 1.28, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62e784e3bc540e885e39fa1f1203a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 2698991919925962800}
+  animator: {fileID: 2698991918688480790}
+--- !u!114 &8074504497461877628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698991918695767448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83660ecafa5e4f1c81f7da758117a8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4437206954445230363}
+--- !u!114 &3498337907091379941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698991918695767448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263c701b80ee460e8d663500fd20e4fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroHealth: {fileID: 8074504497461877628}
+  heroMove: {fileID: 2698991919925962801}
+  heroAttack: {fileID: 3832815006912396203}
+  heroAnimator: {fileID: 4437206954445230363}
+  deathEffect: {fileID: 100006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
+--- !u!114 &3832815006912396203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698991918695767448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5729cd3146a842be806a5512535f0f64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroAnimator: {fileID: 4437206954445230363}
+  characterController: {fileID: 2698991919925962800}
 --- !u!1 &2698991918695767450
 GameObject:
   m_ObjectHideFlags: 0

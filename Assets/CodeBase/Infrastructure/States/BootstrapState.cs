@@ -41,6 +41,7 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             _allServices.RegisterSingle(SetupInputService());
+            _allServices.RegisterSingle<InputService>(new MobileInputService());
             _allServices.RegisterSingle<IAssets>(new AssetProvider());
             _allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssets>()));
