@@ -1,47 +1,26 @@
-﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
     public class AgentMoveToPlayer : MonoBehaviour
     {
-        private const float MinimalDistance = 1;
-        
         public NavMeshAgent agent;
-        private Transform _hero;
-        private IGameFactory _gameFactory;
-
-        private void Start()
+        private Transform _heroTransform;
+        public void Construct(Transform player)
         {
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-            
-            if(_gameFactory.HeroGameObject != null)
-                InitializeHeroTransform();
-            else
+            _heroTransform = player;
+        }
+
+        private void Update() => 
+            SetDestinationForAgent();
+
+        private void SetDestinationForAgent()
+        {
+            if (_heroTransform)
             {
-                _gameFactory.HeroCreated += InitializeHeroTransform;
+                agent.destination = _heroTransform.position;
             }
         }
-
-        private void Update()
-        {
-            if(HeroInitialized() && HeroNotReached())
-                agent.SetDestination(_hero.position);
-        }
-
-        private bool HeroInitialized()
-        {
-            return _hero.transform != null;
-        }
-
-        private void InitializeHeroTransform()
-        {
-            _hero = _gameFactory.HeroGameObject.transform;
-        }
-
-        private bool HeroNotReached() => 
-            Vector3.Distance(agent.transform.position, _hero.position) >= MinimalDistance;
     }
 }

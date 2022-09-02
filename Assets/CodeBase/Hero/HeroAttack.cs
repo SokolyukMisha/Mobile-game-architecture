@@ -1,11 +1,9 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CodeBase.Hero
 {

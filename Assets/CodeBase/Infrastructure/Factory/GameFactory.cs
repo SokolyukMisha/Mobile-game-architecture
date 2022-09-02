@@ -1,35 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CodeBase.Data;
+using CodeBase.Enemy;
+using CodeBase.Enemy.Loot;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Logic;
+using CodeBase.StaticData;
+using CodeBase.UI;
 using UnityEngine;
+using UnityEngine.AI;
+using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
         private readonly IAssets _assets;
+        private readonly IStaticDataService _staticData;
+        private IPersistentProgressService _progress;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
-        
-        public GameObject HeroGameObject { get; set; }
-        public event Action HeroCreated;
 
-        public GameFactory(IAssets assets)
+        private GameObject HeroGameObject { get; set; }
+
+
+        public GameFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService progress)
         {
             _assets = assets;
+            _staticData = staticData;
+            _progress = progress;
         }
 
         public GameObject CreateHero(GameObject at)
         {
             HeroGameObject = InstantiateRegistered(Constants.HeroPrefabPath, at.transform.position);
-            HeroCreated?.Invoke();
             return HeroGameObject;
         }
 
-        public GameObject CreateHud() =>
-            InstantiateRegistered(Constants.HudPrefabPath);
+        public GameObject CreateHud()
+        {
+            GameObject hud = InstantiateRegistered(Constants.HudPrefabPath);
+            hud.GetComponentInChildren<LootCounter>().Construct(_progress.Progress.worldData);
+            return hud;
+        }
 
         public void CleanUpCode()
         {
@@ -43,6 +58,7 @@ namespace CodeBase.Infrastructure.Factory
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
+
         private GameObject InstantiateRegistered(string prefabPath)
         {
             GameObject gameObject = _assets.Instantiate(prefabPath);
@@ -52,10 +68,44 @@ namespace CodeBase.Infrastructure.Factory
 
         public void Register(ISavedProgressReader progressReader)
         {
-            if (progressReader is ISavedProgress progressWriter) 
+            if (progressReader is ISavedProgress progressWriter)
                 ProgressWriters.Add(progressWriter);
-            
+
             ProgressReaders.Add(progressReader);
+        }
+
+        public GameObject InstantiateMonster(MonsterTypeID monsterTypeID, Transform parent)
+        {
+            MonsterStaticData monsterStaticData = _staticData.ForMonster(monsterTypeID);
+            GameObject monster =
+                Object.Instantiate(monsterStaticData.prefab, parent.position, Quaternion.identity, parent);
+            var health = monster.GetComponent<IHealth>();
+            health.Current = monsterStaticData.hp;
+            health.Max = monsterStaticData.hp;
+
+            monster.GetComponent<ActorUI>().Construct(health);
+            monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
+            monster.GetComponent<NavMeshAgent>().speed = monsterStaticData.moveSpeed;
+
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.SetLoot(monsterStaticData.minLoot, monsterStaticData.maxLoot);
+            lootSpawner.Construct(this);
+
+            var attack = monster.GetComponent<Attack>();
+            attack.Construct(HeroGameObject.transform);
+            attack.attackCooldown = monsterStaticData.attackSpeed;
+            attack.damage = monsterStaticData.damage;
+            attack.cleavege = monsterStaticData.cleavage;
+            attack.effectiveDistance = monsterStaticData.effectiveDistance;
+
+            return monster;
+        }
+
+        public LootPiece CreateLoot()
+        {
+            var lootPiece = InstantiateRegistered(Constants.Loot).GetComponent<LootPiece>();
+            lootPiece.Construct(_progress.Progress.worldData);
+            return lootPiece;
         }
 
         private void RegisterProgressWatchers(GameObject gameObject)

@@ -2,6 +2,7 @@
 using System.Collections;
 using CodeBase.Enemy.Animation;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
@@ -10,6 +11,9 @@ namespace CodeBase.Enemy
     {
         public EnemyAnimator animator;
         public EnemyHealth health;
+        public NavMeshAgent agent;
+        public AgentMoveToPlayer agentMoveToPlayer;
+        public Attack enemyAttack;
 
         public GameObject deathEffect;
         public event Action Happened;
@@ -29,10 +33,12 @@ namespace CodeBase.Enemy
         private void Die()
         {
             health.HealthChanged -= OnHealthChanged;
+            enemyAttack.enabled = false;
+            agent.enabled = false;
+            agentMoveToPlayer.enabled = false;
             animator.PlayDeath();
             SpawnDeathFX();
             StartCoroutine(DestroyTimer());
-
             Happened?.Invoke();
         }
 
@@ -41,7 +47,7 @@ namespace CodeBase.Enemy
 
         private IEnumerator DestroyTimer()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
             Destroy(gameObject);
         }
     }

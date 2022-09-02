@@ -32,9 +32,6 @@ namespace CodeBase.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
-            Debug.Log("Loading progress...");
-            Debug.Log(_saveLoadService.LoadProgress() == null);
-
             _persistentProgressService.Progress =
                 _saveLoadService.LoadProgress() != null ? _saveLoadService.LoadProgress() : NewProgress();
         }
@@ -43,10 +40,10 @@ namespace CodeBase.Infrastructure.States
         {
             PlayerProgress progress = new PlayerProgress(initialLevel: "Main");
 
-            progress.heroState.maxHp = 50;
+            progress.heroState.maxHp = 90;
             progress.heroStats.damage = 2f;
             progress.heroStats.radius = 0.5f;
-            progress.heroState.ResetHp();   
+            progress.heroState.ResetHp();
 
             return progress;
         }

@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using CodeBase.Enemy.Animation;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -16,19 +14,25 @@ namespace CodeBase.Enemy
         public float cleavege = 0.5f;
         public float effectiveDistance = 0.5f;
 
-        private IGameFactory _gameFactory;
         private Transform _heroTransform;
         private float _attackCooldown;
         private bool _isAttacking = false;
+
         private int _layerMask;
+
         private Collider[] _hits = new Collider[1];
+
         private bool _attackIsActive;
+
         public float damage = 10f;
+
+        public void Construct(Transform heroTransform)
+        {
+            _heroTransform = heroTransform;
+        }
 
         private void Awake()
         {
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-            _gameFactory.HeroCreated += OnHeroCreated;
             _layerMask = 1<<LayerMask.NameToLayer("Player");
         }
 
@@ -71,9 +75,6 @@ namespace CodeBase.Enemy
 
         private Vector3 StartPoint(Vector3 position) => 
             new Vector3(position.x, position.y + 0.5f, position.z) + transform.forward*effectiveDistance;
-
-        private void OnHeroCreated() =>
-            _heroTransform = _gameFactory.HeroGameObject.transform;
 
         private bool CooldownIsUp() =>
             _attackCooldown <= 0;

@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.UI;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
