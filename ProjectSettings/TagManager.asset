@@ -7,7 +7,6 @@ TagManager:
   - InitialPoint
   - FxTemporaire
   - AttackButton
-  - EnemySpawner
   layers:
   - Default
   - TransparentFX

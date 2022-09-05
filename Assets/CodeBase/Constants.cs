@@ -6,5 +6,6 @@
         public const string HeroPrefabPath = "Infrastructure/Hero";
         public const string HudPrefabPath = "Infrastructure/Hud";
         public const string Loot = "Loot/Loot";
+        public const string Spawner = "Enemies/SpawnPoint";
     }
 }

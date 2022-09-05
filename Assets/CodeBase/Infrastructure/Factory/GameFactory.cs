@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Enemy.Loot;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
@@ -66,7 +66,7 @@ namespace CodeBase.Infrastructure.Factory
             return gameObject;
         }
 
-        public void Register(ISavedProgressReader progressReader)
+        private void Register(ISavedProgressReader progressReader)
         {
             if (progressReader is ISavedProgress progressWriter)
                 ProgressWriters.Add(progressWriter);
@@ -106,6 +106,15 @@ namespace CodeBase.Infrastructure.Factory
             var lootPiece = InstantiateRegistered(Constants.Loot).GetComponent<LootPiece>();
             lootPiece.Construct(_progress.Progress.worldData);
             return lootPiece;
+        }
+
+        public void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeID spawnerMonsterTypeID)
+        {
+            SpawnPoint spawner = InstantiateRegistered(Constants.Spawner, at)
+                .GetComponent<SpawnPoint>();
+            spawner.Construct(this);
+            spawner.ID = spawnerID;
+            spawner.monsterTypeID = spawnerMonsterTypeID;
         }
 
         private void RegisterProgressWatchers(GameObject gameObject)

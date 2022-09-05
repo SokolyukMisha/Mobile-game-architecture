@@ -1,30 +1,30 @@
 ﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using UnityEngine;
 
-namespace CodeBase.Logic
+namespace CodeBase.Logic.EnemySpawners
 {
-    public class EnemySpawner : MonoBehaviour, ISavedProgress
+    public class SpawnPoint : MonoBehaviour, ISavedProgress
     {
         public MonsterTypeID monsterTypeID;
-        private string _id;
+
         private IGameFactory _factory;
+
         public bool slain;
+
         private EnemyDeath _enemyDeath;
 
-        private void Awake()
-        {
-            _id = GetComponent<UniqueID>().id;
-            _factory = AllServices.Container.Single<IGameFactory>();
-        }
+        public string ID { get; set; }
+
+        public void Construct(IGameFactory factory) =>
+            _factory = factory;
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (progress.killData.ClearedSpawners.Contains(_id))
+            if (progress.killData.ClearedSpawners.Contains(ID))
                 slain = true;
             else
             {
@@ -39,10 +39,6 @@ namespace CodeBase.Logic
             _enemyDeath.Happened += Slay;
         }
 
-        private void OnDestroy()
-        {
-        }
-
         private void Slay()
         {
             if (_enemyDeath != null) _enemyDeath.Happened -= Slay;
@@ -53,7 +49,7 @@ namespace CodeBase.Logic
         {
             if (slain)
             {
-                progress.killData.ClearedSpawners.Add(_id);
+                progress.killData.ClearedSpawners.Add(ID);
             }
         }
     }

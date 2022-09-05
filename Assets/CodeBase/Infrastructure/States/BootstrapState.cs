@@ -42,7 +42,7 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             RegisterStaticData();
-            
+
             _allServices.RegisterSingle(SetupInputService());
             _allServices.RegisterSingle<IAssets>(new AssetProvider());
             _allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
