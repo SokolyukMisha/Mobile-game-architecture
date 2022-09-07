@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
+using CodeBase.UI.Services.Factory;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -19,10 +20,13 @@ namespace CodeBase.Infrastructure.States
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, allServices),
-                [typeof(LoadProgressState)] = new LoadProgressState(this, allServices.Single<IPersistentProgressService>(),
-                    allServices.Single<ISaveLoadService>() ),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, allServices.Single<IGameFactory>(),
-                    allServices.Single<IPersistentProgressService>(), allServices.Single<IStaticDataService>()),
+                [typeof(LoadProgressState)] = new LoadProgressState(this,
+                    allServices.Single<IPersistentProgressService>(),
+                    allServices.Single<ISaveLoadService>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain,
+                    allServices.Single<IGameFactory>(),
+                    allServices.Single<IPersistentProgressService>(), allServices.Single<IStaticDataService>(),
+                    allServices.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
@@ -39,7 +43,7 @@ namespace CodeBase.Infrastructure.States
             state.Enter(payload);
         }
 
-        private TState GetState<TState>() where TState : class, IExitableState => 
+        private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
 
         private TState ChangeState<TState>() where TState : class, IExitableState

@@ -1,6 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.StaticData;
-
-namespace CodeBase.Infrastructure.Services
+﻿namespace CodeBase.Infrastructure.Services
 {
     public class AllServices
     {

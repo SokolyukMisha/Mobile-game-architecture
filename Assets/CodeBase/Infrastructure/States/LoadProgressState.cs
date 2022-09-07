@@ -1,7 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {

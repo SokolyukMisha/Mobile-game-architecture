@@ -233,6 +233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bootstrapper
       objectReference: {fileID: 0}
+    - target: {fileID: 4799865007981592677, guid: 2bb03cd66b3ce624aa4cff64b8d5b339, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4799865007981592679, guid: 2bb03cd66b3ce624aa4cff64b8d5b339, type: 3}
       propertyPath: m_RootOrder
       value: 1

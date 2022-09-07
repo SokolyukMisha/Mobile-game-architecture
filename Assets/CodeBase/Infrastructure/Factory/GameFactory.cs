@@ -7,7 +7,8 @@ using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
-using CodeBase.UI;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -18,7 +19,8 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
-        private IPersistentProgressService _progress;
+        private readonly IPersistentProgressService _progress;
+        private readonly IWindowService _windowService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
@@ -26,11 +28,12 @@ namespace CodeBase.Infrastructure.Factory
         private GameObject HeroGameObject { get; set; }
 
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService progress)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService progress, IWindowService windowService)
         {
             _assets = assets;
             _staticData = staticData;
             _progress = progress;
+            _windowService = windowService;
         }
 
         public GameObject CreateHero(GameObject at)
@@ -43,6 +46,11 @@ namespace CodeBase.Infrastructure.Factory
         {
             GameObject hud = InstantiateRegistered(Constants.HudPrefabPath);
             hud.GetComponentInChildren<LootCounter>().Construct(_progress.Progress.worldData);
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+            {
+                openWindowButton.Construct(_windowService);
+            }
             return hud;
         }
 
